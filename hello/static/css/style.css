@@ -73,7 +73,7 @@ a:hover {
 }
 
 .reg_bkg{
-    background: url(/static/reg_bkg.jpg) no-repeat center top fixed;
+    background: url(../reg_bkg.jpg) no-repeat center top fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -82,7 +82,7 @@ a:hover {
 }
 
 .auth_bkg{
-    background: url(/static/auth_bkg.jpg) no-repeat center top fixed;
+    background: url(../auth_bkg.jpg) no-repeat center top fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

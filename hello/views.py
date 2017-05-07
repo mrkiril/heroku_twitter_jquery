@@ -29,7 +29,7 @@ def static(request):
     base = os.path.basename(request.path)
     file_path = request.path.replace("static", "assets")
     file_path = os.path.abspath(file_path[1:])
-    # print(file_path)
+    print("LALKA >> ", file_path)
     with open(file_path, 'rb') as fp:
         file = fp.read()
     response = HttpResponse(
