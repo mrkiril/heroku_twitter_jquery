@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Twitter</title>
+    <!-- Bootstrap core CSS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <!-- Custom styles for this template -->
+   
+
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">    
+    <script src="static/js/bootstrap.js"></script>    
+    <link rel="shortcut icon" href="static/favicon.ico">    
+
+</head>
+<style type="text/css">
+ body{    
+    /*
+    background-image: url(http://backgrounds4k.net/wp-content/uploads/2016/03/Grey-Abstract-2015-hd-wallpaper.jpg);
+    */
+ }
+
+.d {
+    display: flex;
+    height: 100%;
+}
+.in {
+    font-family: sans-serif;
+    padding: 1rem;
+    margin: auto;
+    width: 100%;
+}
+.form{
+    margin-left: 0px;
+    margin-top:  0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+}
+#yato_pic{
+    background-color: #2f7bd8;
+}
+
+#yato_pic img{
+    margin: 20px 0px 20px 0px;
+    height: 100px;
+}
+</style> 
+<body>
+    <div class="d">
+        <div class="in">            
+            <div class="row form">
+                <div class="col-xs-1 col-sm-2 col-md-3 col-lg-4"></div>
+                <div class="col-xs-10 col-sm-8 col-md-6 col-lg-4">                    
+                    <h3> Анимацию таких атрибутов как «height»,  «width» и «opacity» видно невооружённым взглядом, в действительности же это далеко не всё, заглянув  внутрь jQueryможноувидеть,что  так  же  изменяются внутренние и внешние отступы –«padding»и «margin»–так что не стоит об этом забывать. </h3>
+
+                    <button id="button_1" type="button" class="btn btn-default btn-lg">
+                        To Big
+                    </button>
+
+                    <button id="button_2" type="button" class="btn btn-default btn-lg">
+                        To Small
+                    </button>
+
+                    <div id="yato_pic">
+                        <img src="static/yato.jpg" alt="yato yato">
+                    </div>
+
+                    <h3><a id="link" href="http://httpbin.org/get">Link ( AHAHA )</a></h3>
+
+
+                    <form action="http://httpbin.org/post">
+                        {% csrf_token %}
+                        <input type="text" name="name" value="Ivan"/>
+                            <select name="role">
+                                <option>User</option>
+                                <option>Admin</option>
+                            </select>
+                        <input type="submit"/>
+                    </form>
+                    <div id="result"></div>
+                    <div id="test_load"></div>
+                </div>
+                <div class="col-xs-1 col-md-2 col-md-3 col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    (function($, undefined){
+
+        $("h4").css("color", "black");
+
+    })(jQuery);
+
+    $("#button_1").click(function(event){
+        // значения указанных свойств будут плавно изменяться
+        //от текущих до заданных
+        $('#yato_pic img').animate(
+            {
+            'opacity':'-=0.5',
+            'height':'+=50px',
+            'width':'+=50px'
+            }
+        )
+
+    })
+
+    $("#button_2").click(function(event){
+        // значения указанных свойств будут плавно изменяться
+        //от текущих до заданных
+        $('#yato_pic img').animate(
+            {
+            'opacity':'+=0.5',
+            'height':'-=50px',
+            'width':'-=50px'
+            },
+            {
+                duration: 400,
+                specialEasing: {
+                    width: "swing",
+                    height: "swing"
+                }
+            }
+        )
+
+    })
+    
+    $("#link").click(
+        function(event){
+            alert("Hello!")
+            event.stopImmediatePropagation();
+            return false;
+        }
+    )
+
+
+
+    $('form').submit(function(){
+        
+        $.ajax({
+            url: $(this).attr('action'),
+            method: "POST",            
+            data: $(this).serialize(),  
+            dataType: "html",         
+            
+            success: function(data) 
+            { 
+                alert(data)                
+                $("#result").html(data)
+            },
+            error: function()
+            {
+
+                alert("ERROR")
+            }
+        });
+
+
+        return false;
+    });
+
+
+    
+</script>
+</html>

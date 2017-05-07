@@ -1,0 +1,155 @@
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+.blog_main_container {
+    padding-top: 70px; 
+}
+
+p{
+    margin: 0 0 0 0px;
+}
+
+
+.list_post{
+  background-color: #F2F2F2; 
+  padding: 0; 
+}
+
+.blog-post{
+    border-left: 5px solid #D4D4D4; /* Параметры границы */
+    background-color: #FFFFFF;
+
+    margin-bottom: 30px;
+
+    padding: 10px;
+}
+
+.not_visible{
+  visibility: hidden;
+}
+
+.form_post{
+    margin-left: 0px;
+    margin-top:  10px;
+    margin-bottom: 10px;
+    margin-right: 0px;
+}
+
+.form_margin_inl{
+    display: inline-block;
+    width: auto;
+    /*
+    height: 30px;
+    */
+    margin: 0px 0px 0px 0px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 3px;
+    vertical-align: middle;
+    text-align: center;
+    color: #555;    
+}
+
+a {
+    color: #BBBBBB; /* Цвет обычной ссылки */
+}
+
+a:hover {
+    color: #131111;
+}
+
+.twit_font_size{
+    font-size: 19pt;
+}
+
+
+.d {
+    display: flex;
+    height: 100%;
+
+    
+}
+
+.reg_bkg{
+    background: url(http://www.1366x768.ru/black-white/2/navel-wallpaper-1366x768.jpg) no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+     background-size: cover;
+
+}
+
+.auth_bkg{
+    background: url(http://www.1366x768.ru/black-white/25/belly-girls-wallpaper-1366x768.jpg) no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+     background-size: cover;
+
+}
+.in {
+    font-family: sans-serif;
+    padding: 1rem;
+    margin: auto;
+    width: 100%;
+}
+.form{
+    margin-left: 0px;
+    margin-top:  0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+}
+.inl{    
+    display: inline-block;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    vertical-align: bottom;
+}
+a {
+    color: #b7b7b7; /* Цвет обычной ссылки */
+}
+a:hover {
+    color: #252728;
+}
+.alert_margin{
+    margin-top: 15px;
+}
+
+#send_post{
+    margin-bottom: 60px;
+}
+
+#list_twit a{
+    margin-left: 5px;
+}
+
+
+#list_twit #cansel_twit_edit{
+    margin-left: 5px;
+}
+
+
+#test_div{
+    background-color: #dd1313;
+    height: 100px;
+    width: 300px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

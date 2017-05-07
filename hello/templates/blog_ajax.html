@@ -1,0 +1,116 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-6">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Baby don't hurt me</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+            <ul class="nav navbar-nav">
+                <!--
+                <li class="active"><a href="#">Just Button 1</a></li>
+                <li><a href="#">Just Button 2</a></li>
+                <li><a href="#">Just Button 3</a></li>
+                -->
+            </ul>
+
+            <form class="navbar-form navbar-right" role="search" id="logout" name="logout" method="post" action="{{ logout }}">{% csrf_token %}
+                <input type="hidden" name="type_post" value="exit">
+                <h4 class="form_margin_inl">{{ username }}</h4>                
+                <button type="submit" class="btn btn-default">Exit</button>
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="container blog_main_container">
+    <div class="blog-header">
+        <h1 class="blog-title">Note. Local. Ever.</h1>
+    </div>
+
+    <div class="row">
+    <div class="col-sm-8">            
+        <form name="send_post" id="send_post" method="post" action="{{ send_link }}">{% csrf_token %}                
+            <input type="text" id="new_twit_text" autocomplete="off" name="new_twit_text" class="form-control form_post" placeholder="Text input">
+            <button type="submit" class="btn btn-default btn-sm">Send new post</button>
+        </form><!-- /.blog-FORM --> 
+        <div id='list_twit' name='list_twit'>        
+            <!-- /.blog-post -->
+            {% for ar in articles %}                
+            <div id="twit_{{ ar.id }}" class="blog-post"> 
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p type="date" class="blog-post-meta">{{ ar.twitter_date|date:"o-F-d H:i:s"}}</p>
+                    </div>
+                    <div align="right" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div >                            
+                        <a id="upd_{{ ar.id }}" name="upd_{{ ar.id }}" href="{{ update_form }}{{ ar.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    
+                        <a id="del_{{ ar.id }}" name="del_{{ ar.id }}" href="{{ delete_twit }}{{ ar.id }}"><span class="glyphicon glyphicon-remove"></span></a>                            
+                        </div>
+                    </div>
+                </div>
+                <h3 id="twi_text_{{ ar.id }}">{{ ar.twitter_text }}</h3>
+            </div>
+            {% endfor %}
+            
+
+        </div>
+        <div id='root_message'></div>
+        <ul class="pager">
+            <li><a href="#">Previous</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+    </div>
+    <!-- /.blog-main -->
+
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>About</h4>
+        <p>My first test progect.</p>
+        <p>Django + PostgreeSQL</p>
+        <p>and jquery</p>
+      </div>
+      <div class="sidebar-module">
+        <h4>Archives</h4>
+        <ol class="list-unstyled">
+          <li><a href="#">January 2014</a></li>
+          <li><a href="#">December 2013</a></li>
+          <li><a href="#">November 2013</a></li>
+          <li><a href="#">October 2013</a></li>
+          <li><a href="#">September 2013</a></li>
+          <li><a href="#">August 2013</a></li>
+          <li><a href="#">July 2013</a></li>
+          <li><a href="#">June 2013</a></li>
+          <li><a href="#">May 2013</a></li>
+          <li><a href="#">April 2013</a></li>
+          <li><a href="#">March 2013</a></li>
+          <li><a href="#">February 2013</a></li>
+        </ol>
+      </div>
+      <div class="sidebar-module">
+        <h4>Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a href="https://github.com/mrkiril">GitHub</a></li>
+          <li><a href="https://vk.com/mrkiril">Vk</a></li>
+          <li><a href="https://www.facebook.com/kukhelnyi">Facebook</a></li>
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+
+  </div><!-- /.row -->
+
+</div><!-- /.container -->
+
+<div class="blog-footer">
+  <p>Blog template built for <a href="https://facebook.com/flyonts">Flyonts</a> by <a href="https://www.facebook.com/kukhelnyi">mrkiril</a>.</p>
+  <p>
+    <a href="#">Back to top</a>
+  </p>
+</div>
