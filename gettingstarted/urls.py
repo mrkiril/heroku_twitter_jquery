@@ -10,7 +10,6 @@ from hello import views
 # url(r'^blog/', include('blog.urls')),
 
 urlpatterns = [
-    url(r'^try_ajax', views.try_ajax),
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^static/.*', views.static),
@@ -18,7 +17,7 @@ urlpatterns = [
     url(r'^auth/', views.authentefication, name='authentefication'),
     url(r'^logout/', views.logout),
     url(r'^$', views.blog, name='blog'),
-    #url(r'^blog/', views.blog),
+
     url(r'^twit/', include('hello.urls')),    
     url(r'^regform/', views.regformlive),
     

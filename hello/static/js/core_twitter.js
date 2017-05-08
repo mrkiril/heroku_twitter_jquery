@@ -82,7 +82,6 @@ if (document.readyState == "complete") {
             dataType: "html",
             success: function(data) 
             {
-                //$("#root_message").html(data)
                 var mes_json = JSON.parse(data);
                 allmes_reg(mes_json)
 
@@ -147,7 +146,6 @@ if (document.readyState == "complete") {
             dataType: "html",
             success: function(data) 
             {
-                //$("#root_message").html(data)
                 var mes_json = JSON.parse(data);
                 if(mes_json.username.status == 'ok')
                 {
@@ -180,15 +178,17 @@ if (document.readyState == "complete") {
             dataType: "html",
             success: function(data) 
             {
-                //$("#root_message").html(data)
                 var mes_json = JSON.parse(data);
                 if(mes_json.password1.status == 'false' && document.getElementById("password_2").value != '')
                 {
                     $("#password_div_1").addClass('has-error has-feedback');
-
                     $("#hor_pass_div_1").append('<span id="glyphicon_pass_1" class="glyphicon glyphicon-remove form-control-feedback"></span>');
-
                     $("#hor_pas1_mg").append('<label class="help-block">'+mes_json.password1.message+'</label>');
+                }
+                else
+                {
+                    clearregform_pas1()
+                    clearregform_pas2()
                 }
                 
             },
@@ -210,9 +210,7 @@ if (document.readyState == "complete") {
             dataType: "html",
             success: function(data) 
             {
-                //$("#root_message").html(data)
-                var mes_json = JSON.parse(data);
-                
+                var mes_json = JSON.parse(data);                
                 if(mes_json.password1.status == 'ok' && mes_json.password2.status == 'ok')
                 {
                     $("#password_div_1").addClass('has-success has-feedback');
@@ -320,7 +318,6 @@ if (document.readyState == "complete") {
     });
 
 
-
     function edit_animate(parent_id, color)
     {
         $(parent_id).animate(
@@ -329,7 +326,6 @@ if (document.readyState == "complete") {
 
         }, 700 );
     }
-
 
     $('body').on('click', 'button[id=confirm_twit_edit]', function(event) {
         event.preventDefault();
@@ -415,40 +411,40 @@ if (document.readyState == "complete") {
 
     function allmes_reg(mes_json)
     {
-    if(mes_json.username.status == 'ok')
-    {
-        $("#reg_username_div").addClass('has-success has-feedback');
-        $("#hor_user_div").append('<span id="glyphicon_username" class="glyphicon glyphicon-ok form-control-feedback"></span>');   
-    }
+        if(mes_json.username.status == 'ok')
+        {
+            $("#reg_username_div").addClass('has-success has-feedback');
+            $("#hor_user_div").append('<span id="glyphicon_username" class="glyphicon glyphicon-ok form-control-feedback"></span>');   
+        }
 
-    if(mes_json.username.status == 'false')
-    {
-        $("#reg_username_div").addClass('has-error has-feedback');
-        $("#hor_user_div").append('<span id="glyphicon_username" class="glyphicon glyphicon-remove form-control-feedback"></span>');
-        $("#hor_user_mg").append('<label class="help-block">'+mes_json.username.message+'</label>');
-    }
+        if(mes_json.username.status == 'false')
+        {
+            $("#reg_username_div").addClass('has-error has-feedback');
+            $("#hor_user_div").append('<span id="glyphicon_username" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+            $("#hor_user_mg").append('<label class="help-block">'+mes_json.username.message+'</label>');
+        }
 
-    if(mes_json.password1.status == 'ok' && mes_json.password2.status == 'ok')
-    {
-        $("#password_div_1").addClass('has-success has-feedback');
-        $("#hor_pass_div_1").append('<span id="glyphicon_username" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+        if(mes_json.password1.status == 'ok' && mes_json.password2.status == 'ok')
+        {
+            $("#password_div_1").addClass('has-success has-feedback');
+            $("#hor_pass_div_1").append('<span id="glyphicon_pass_1" class="glyphicon glyphicon-ok form-control-feedback"></span>');
 
-        $("#password_div_2").addClass('has-success has-feedback');
-        $("#hor_pass_div_2").append('<span id="glyphicon_username" class="glyphicon glyphicon-ok form-control-feedback"></span>');
+            $("#password_div_2").addClass('has-success has-feedback');
+            $("#hor_pass_div_2").append('<span id="glyphicon_pass_2" class="glyphicon glyphicon-ok form-control-feedback"></span>');
 
-    }
+        }
 
-    if(mes_json.password1.status == 'false' || mes_json.password2.status == 'false')
-    {
-        $("#password_div_1").addClass('has-error has-feedback');
-        $("#password_div_2").addClass('has-error has-feedback');
+        if(mes_json.password1.status == 'false' || mes_json.password2.status == 'false')
+        {
+            $("#password_div_1").addClass('has-error has-feedback');
+            $("#password_div_2").addClass('has-error has-feedback');
 
-        $("#hor_pass_div_1").append('<span id="glyphicon_username" class="glyphicon glyphicon-remove form-control-feedback"></span>');
-        $("#hor_pass_div_2").append('<span id="glyphicon_username" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+            $("#hor_pass_div_1").append('<span id="glyphicon_pass_1" class="glyphicon glyphicon-remove form-control-feedback"></span>');
+            $("#hor_pass_div_2").append('<span id="glyphicon_pass_2" class="glyphicon glyphicon-remove form-control-feedback"></span>');
 
-        $("#hor_pas1_mg").append('<label class="help-block">'+mes_json.password1.message+'</label>');
-        $("#hor_pas2_mg").append('<label class="help-block">'+mes_json.password2.message+'</label>');
-    }
+            $("#hor_pas1_mg").append('<label class="help-block">'+mes_json.password1.message+'</label>');
+            $("#hor_pas2_mg").append('<label class="help-block">'+mes_json.password2.message+'</label>');
+        }
 
     }
 
@@ -484,7 +480,6 @@ if (document.readyState == "complete") {
         new_form += '<button type="button" id="confirm_twit_edit" class="btn btn-default btn-sm form_margin_inl">Confirm changes</button>';
         new_form += '<button type="button" id="cansel_twit_edit" class="btn btn-default btn-sm form_margin_inl">Cancel</button>';
 
-        //$("куда добавляем").append("что добавляем")
         $("#twit_"+id).append(new_form)
         return {"id": id, "edit_twit": last_twit}
     }
@@ -503,9 +498,6 @@ if (document.readyState == "complete") {
         upd_twit_id = null;
         upd_twit_text = null;
     }
-
-
-
 
     function getCookie(name) 
     {
@@ -549,10 +541,6 @@ if (document.readyState == "complete") {
     $.ajaxSetup({
     beforeSend: function(xhr, settings) {
         if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
-            // Send the token to same-origin, relative URLs only.
-            // Send the token only if the method warrants CSRF protection
-            // Using the CSRFToken value acquired earlier
-          
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         }
     }

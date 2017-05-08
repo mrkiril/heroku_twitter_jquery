@@ -17,9 +17,6 @@ from django.template import RequestContext, Template
 from django.template.loader import render_to_string, get_template
 from django.core.urlresolvers import reverse
 
-def try_ajax(request):
-    return render(request, 'test_jquerry.html', {'greetings': "LALKA"})
-
 
 def main(request):
     return return_lalka(message='Blog Page')
@@ -29,7 +26,6 @@ def static(request):
     base = os.path.basename(request.path)
     file_path = request.path.replace("static", "assets")
     file_path = os.path.abspath(file_path[1:])
-    print("LALKA >> ", file_path)
     with open(file_path, 'rb') as fp:
         file = fp.read()
     response = HttpResponse(
@@ -38,35 +34,13 @@ def static(request):
     return response
 
 
-def update_form(request):
-    '''
-    view = "update_form"
-    if request.user.is_authenticated():
-        twid = re.search("/twit/update/form/(\d+)", request.path).group(1)
-        dick = {
-            'delete_twit': '/twit/delete/',
-            'update_form': '/twit/update/form/',
-            'update_db': '/twit/update/db/',
-            'send_link': '/twit/add/',
-            'logout': '/logout/',
-            'articles': twitter_db.read_data_from_sql(request.user)
-        }
-        twit = twitter_db.take_twit_by_id(id=twid)
-        dick['twit_update_text'] = twit.twitter_text
-        dick['twit_update_id'] = int(twid)
-        return render(request, 'forms.html', dick)
-    return redirect('/auth/')
-    '''
-    return return_lalka()
-
-
 def update_twit(request):
     if request.user.is_authenticated():
         if request.method == "POST":
             twitter_db.update_data(
                 twi_id=str(request.POST['upd_id']),
                 new_twit=request.POST['text_twit'])
-            
+
             twi_data = {"status": "ok"}
             return return_lalka(message=json.dumps(twi_data))
 
@@ -79,8 +53,8 @@ def delete_twit(request):
         this_twit = twitter_db.delete_data_from_sql(
             user=request.user,
             row_id=twit_id
-        )        
-        return return_lalka(message=json.dumps({"del_twit": "#twit_"+twit_id}))
+        )
+        return return_lalka(message=json.dumps({"del_twit": "#twit_" + twit_id}))
 
     return authentefication(request)
 
@@ -92,7 +66,7 @@ def add_twit(request):
             this_twit = twitter_db.add_data_to_sql(
                 user=request.user,
                 twit=request.POST["new_twit_text"])
-            
+
             twit_dict = {
                 "date": this_twit.twitter_date.strftime("%Y-%B-%d %H:%M:%S"),
                 "twit": str(this_twit.twitter_text),
@@ -102,7 +76,7 @@ def add_twit(request):
     return authentefication(request)
 
 
-def blog(request):    
+def blog(request):
     if request.user.is_authenticated():
         request.session.set_expiry(1000)
         view = "blog"
@@ -115,7 +89,8 @@ def blog(request):
             'username': request.user,
             'articles': twitter_db.read_data_from_sql(request.user)
         }
-        blog_body = render_to_string('blog_ajax.html', context=dick, request=request)
+        blog_body = render_to_string(
+            'blog_ajax.html', context=dick, request=request)
         if request.method == "GET":
             dick['BODY'] = blog_body
             return render(request, 'twitter_ajax.html', dick)
@@ -142,7 +117,7 @@ def registration(request):
                 )
                 auth.login(request, newuser)
                 request.session.set_expiry(1000)
-                request.session["twit"] = True                
+                request.session["twit"] = True
                 return blog(request)
             else:
                 return HttpResponse(regformlivemessage(newuser_form, request.POST, mes_dick), content_type='application/json')
@@ -160,7 +135,6 @@ def authentefication(request):
     if request.method == "POST":
         username = request.POST.get("enter_username", '')
         password = request.POST.get("password", '')
-        # return return_lalka(message=request.POST['enter_username'])
         user = auth.authenticate(
             username=username,
             password=password
@@ -171,12 +145,8 @@ def authentefication(request):
             request.session.set_expiry(1000)
             request.session["twit"] = True
             return blog(request)
-            #return redirect( reverse('blog') )
 
         if user is None:
-            print('UNCORECT_USER')
-            #dick['auth_error'] = 'True'
-            # return render(request, 'authorisation.html', dick)
             return return_lalka(message="UNCORECT_USER")
 
     dick['username'] = "tmp_user"
@@ -193,7 +163,6 @@ def logout(request):
     return moses_response(where="body",
                           what=render_to_string(
                               'auth_ajax.html', context=dick, request=request),
-                          #what=render(request, 'auth_ajax.html', dick).content.decode(),
                           request=request,
                           )
 
@@ -241,11 +210,9 @@ def regformlivemessage(dj_form, post, dick):
 
     pas1_mg = re.findall(
         '<label for="id_password1">Password:</label></th><td>(.*)<input id="id_password1"', str(dj_form))
-    print("PASS1 MG >>> ", pas1_mg)
 
     pas2_mg = re.findall(
         '<label for="id_password2">Password confirmation:</label></th><td>(.*)<input id="id_password2"', str(dj_form))
-    print("PASS2 MG >>> ", pas2_mg)
 
     if pas1_mg != [''] or pas2_mg != ['']:
         dick['password1']['status'] = 'false'

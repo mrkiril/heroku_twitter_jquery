@@ -10,7 +10,6 @@ import datetime
 import string
 import random
 import urllib.parse
-#import time
 from hello.models import Twitter
 from django.utils import timezone
 
