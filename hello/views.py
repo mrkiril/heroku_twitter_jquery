@@ -66,10 +66,11 @@ def add_twit(request):
             this_twit = twitter_db.add_data_to_sql(
                 user=request.user,
                 twit=request.POST["new_twit_text"])
-
+            twi = render_to_string('add_twit_template.html', context={"twit": str(this_twit.twitter_text)}, request=request)
+            
             twit_dict = {
                 "date": this_twit.twitter_date.strftime("%Y-%B-%d %H:%M:%S"),
-                "twit": str(this_twit.twitter_text),
+                "twit": twi,
                 "id": str(this_twit.id)
             }
             return return_lalka(json.dumps(twit_dict))
